@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Calorie Meter | KINETIX{% endblock %}
+{% block content %}
+<main class="container" style="padding-top: 40px; padding-bottom: 40px;">
+  <div class="section-head">
+    <h2>Calorie meter</h2>
+    <p>Estimate your daily needs and recovery targets.</p>
+  </div>
+
+  <div class="calculator-card">
+    <form method="get">
+      <div class="input-row">
+        <label>
+          Weight (kg)
+          <input type="number" name="weight" step="0.1" value="{{ request.args.get('weight', '') }}" required>
+        </label>
+        <label>
+          Height (cm)
+          <input type="number" name="height" step="0.1" value="{{ request.args.get('height', '') }}" required>
+        </label>
+      </div>
+      <div class="input-row">
+        <label>
+          Age
+          <input type="number" name="age" value="{{ request.args.get('age', '') }}" required>
+        </label>
+        <label>
+          Sex
+          <select name="sex">
+            <option value="male" {% if request.args.get('sex') == 'male' %}selected{% endif %}>Male</option>
+            <option value="female" {% if request.args.get('sex') == 'female' %}selected{% endif %}>Female</option>
+          </select>
+        </label>
+      </div>
+      <div class="input-row">
+        <label>
+          Activity level
+          <select name="activity">
+            <option value="sedentary" {% if request.args.get('activity') == 'sedentary' %}selected{% endif %}>Sedentary</option>
+            <option value="light" {% if request.args.get('activity') == 'light' %}selected{% endif %}>Light</option>
+            <option value="moderate" {% if request.args.get('activity') == 'moderate' %}selected{% endif %}>Moderate</option>
+            <option value="active" {% if request.args.get('activity') == 'active' %}selected{% endif %}>Active</option>
+            <option value="very_active" {% if request.args.get('activity') == 'very_active' %}selected{% endif %}>Very Active</option>
+          </select>
+        </label>
+        <label>
+          Goal
+          <select name="goal">
+            <option value="maintain" {% if request.args.get('goal') == 'maintain' %}selected{% endif %}>Maintain</option>
+            <option value="lose" {% if request.args.get('goal') == 'lose' %}selected{% endif %}>Lose Fat</option>
+            <option value="gain" {% if request.args.get('goal') == 'gain' %}selected{% endif %}>Gain Muscle</option>
+          </select>
+        </label>
+      </div>
+      <label>
+        Workout duration (minutes)
+        <input type="number" name="duration" value="{{ request.args.get('duration', '30') }}" required>
+      </label>
+      <button class="button" type="submit">Calculate</button>
+    </form>
+
+    {% if result %}
+    <div class="result-box">
+      <strong>Estimated daily calorie target: {{ result.target }} kcal</strong><br>
+      <span style="color: var(--muted);">Maintenance: {{ result.maintenance }} kcal • Burned during workout: {{ result.burned }} kcal</span>
+    </div>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

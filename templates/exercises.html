@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Exercises | KINETIX{% endblock %}
+{% block content %}
+<main class="container" style="padding-top: 40px; padding-bottom: 40px;">
+  <div class="section-head">
+    <h2>Exercise library</h2>
+    <p>Body-part specific workouts for performance and growth.</p>
+  </div>
+
+  <div class="filter-bar">
+    {% for part in body_parts %}
+      {% if part == selected_part %}
+        <a class="filter-chip active" href="/exercises?part={{ part }}">{{ part|title }}</a>
+      {% else %}
+        <a class="filter-chip" href="/exercises?part={{ part }}">{{ part|title }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="item-list">
+    {% for exercise in exercises %}
+    <article class="item">
+      <div class="item-header">
+        <h3>{{ exercise.name }}</h3>
+        <span class="tag">{{ exercise.focus }}</span>
+      </div>
+      <div class="meta">
+        {{ exercise.body_part|title }} • {{ exercise.difficulty }} • {{ exercise.duration }}
+      </div>
+      <p style="color: var(--muted); margin-top: 12px; line-height: 1.7;">{{ exercise.description }}</p>
+      <a class="demo-link" href="{{ exercise.demo_url }}" target="_blank" rel="noreferrer">Watch demo</a>
+    </article>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

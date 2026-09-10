@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}KINETIX | Gym & Yoga{% endblock %}
+{% block content %}
+<main>
+  <section class="container hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Train with purpose</div>
+        <h1>Build strength. Breathe deeper. Move better.</h1>
+        <p class="lead">
+          KINETIX merges performance training with mindful movement so you can build power,
+          recover smarter, and stay consistent across every part of your routine.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="/exercises">Explore Programs</a>
+          <a class="button-secondary" href="/yoga">Try Yoga</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>12k+</strong><span>members</span></div>
+          <div class="stat"><strong>24/7</strong><span>access</span></div>
+          <div class="stat"><strong>4.9/5</strong><span>reviews</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image">
+          <div class="badge">
+            <small>Session streak</small>
+            <strong>28 days</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Everything your body needs</h2>
+      <p>Lift, stretch, recover, repeat.</p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="icon">🏋️</div>
+        <h3>Gym performance</h3>
+        <p>Strength-focused routines, guided progression, and conditioning built to push your performance forward.</p>
+      </article>
+      <article class="feature-card">
+        <div class="icon">🧘</div>
+        <h3>Yoga flow</h3>
+        <p>Increase mobility, reduce stress, and recover with balance-focused practices designed to support recovery.</p>
+      </article>
+      <article class="feature-card">
+        <div class="icon">📊</div>
+        <h3>Calorie meter</h3>
+        <p>Set your training goals and monitor your energy expenditure with a simple calorie tracking tool.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Featured workouts</h2>
+      <p>Popular plans for every goal.</p>
+    </div>
+
+    <div class="program-grid">
+      {% for exercise in featured_exercises %}
+      <article class="program-card">
+        <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="body">
+          <span class="chip">{{ exercise.focus }}</span>
+          <h3>{{ exercise.name }}</h3>
+          <p>{{ exercise.description }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Yogic recovery</h2>
+      <p>Designed to reset your body and mind.</p>
+    </div>
+
+    <div class="card-grid">
+      {% for pose in featured_poses %}
+      <article class="info-card">
+        <h3>{{ pose.name }}</h3>
+        <p>{{ pose.description }}</p>
+        <div class="tags">
+          <span class="tag">{{ pose.focus }}</span>
+          <span class="tag">{{ pose.duration }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Yoga | KINETIX{% endblock %}
+{% block content %}
+<main class="container" style="padding-top: 40px; padding-bottom: 40px;">
+  <div class="section-head">
+    <h2>Yoga practice</h2>
+    <p>Build mobility, balance, and recovery through mindful movement.</p>
+  </div>
+
+  <div class="filter-bar">
+    {% for focus in yoga_focuses %}
+      {% if focus == selected_focus %}
+        <a class="filter-chip active" href="/yoga?focus={{ focus }}">{{ focus|title }}</a>
+      {% else %}
+        <a class="filter-chip" href="/yoga?focus={{ focus }}">{{ focus|title }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="item-list">
+    {% for pose in poses %}
+    <article class="item">
+      <div class="item-header">
+        <h3>{{ pose.name }}</h3>
+        <span class="tag">{{ pose.focus|title }}</span>
+      </div>
+      <div class="meta">
+        {{ pose.difficulty }} • {{ pose.duration }}
+      </div>
+      <p style="color: var(--muted); margin-top: 12px; line-height: 1.7;">{{ pose.description }}</p>
+      <a class="demo-link" href="{{ pose.demo_url }}" target="_blank" rel="noreferrer">Watch demo</a>
+    </article>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}
